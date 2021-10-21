@@ -1,0 +1,60 @@
+# # config file version
+# 需要在grafana.in中[paths] provisioning配置文件路径
+apiVersion: 1
+
+# # list of datasources that should be deleted from the database
+#deleteDatasources:
+#   - name: Graphite
+#     orgId: 1
+
+# # list of datasources to insert/update depending
+# # on what's available in the database
+datasources:
+  # <string, required> name of the datasource. Required
+  - name: mysql-container 
+    # <string, required> datasource type. Required
+    # 数据库类型
+    type: mysql
+    # <string, required> access mode. direct or proxy. Required
+    access: proxy
+    # <int> org id. will default to orgId 1 if not specified
+    orgId: 1
+    # <string> url
+    # mysql-container是docker-compose中mysql的容器名,相当于域名
+    url: mysql-container:3306 
+    # <string> database password, if used
+    # 数据库密码
+    password: uEstC318.#
+    # <string> database user, if used
+    # 数据库用户
+    user: user
+    # <string> database name, if used
+    # 数据库中库名
+    database: mybatis
+    # <bool> enable/disable basic auth
+#   basicAuth:
+#   # <string> basic auth username
+#   basicAuthUser:
+#   # <string> basic auth password
+#   basicAuthPassword:
+#   # <bool> enable/disable with credentials headers
+#   withCredentials:
+#   # <bool> mark as default datasource. Max one per org
+    isDefault: true
+#   # <map> fields that will be converted to json and stored in json_data
+#   jsonData:
+#      graphiteVersion: "1.1"
+#      tlsAuth: true
+#      tlsAuthWithCACert: true
+#      httpHeaderName1: "Authorization"
+#   # <string> json object of data that will be encrypted.
+#   secureJsonData:
+#     tlsCACert: "..."
+#     tlsClientCert: "..."
+#     tlsClientKey: "..."
+#     # <openshift\kubernetes token example>
+#     httpHeaderValue1: "Bearer xf5yhfkpsnmgo"
+#   version: 1
+#   # <bool> allow users to edit datasources from the UI.
+#   editable: false
+

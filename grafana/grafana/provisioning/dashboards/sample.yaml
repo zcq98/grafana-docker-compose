@@ -1,0 +1,11 @@
+# # config file version
+apiVersion: 1
+# 配置初始化加载dashboard.json的路径
+providers:
+  - name: 'default'
+    orgId: 1
+    folder: ''
+    folderUid: ''
+    type: file
+    options:
+      path: /var/lib/grafana/dashboards
