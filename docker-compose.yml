@@ -1,0 +1,60 @@
+version: '3.9'
+services: 
+  mysql:
+    container_name: mysql-container
+    image: mysql:5.7
+    ports:
+      - "33306:3306"
+    environment:
+      # 配置MySQL的root密码
+      MYSQL_ROOT_PASSWORD: uEstC318.#
+      # 配置MySQL使所有用户能访问
+      MYSQL_ROOT_HOST: '%'
+      # 创建数据库mybatis
+      MYSQL_DATABASE: mybatis
+      # 创建用户user,会自动给user用户数据库mybatis的权限
+      MYSQL_USER: user
+      # 配置user的密码
+      MYSQL_PASSWORD: uEstC318.#
+      TZ: Asia/Shanghai
+    # 数据库数据持久化,不配也行,配置会导致换机器后挂载卷冲突,MySQL启动失败
+    #volumes:
+    #  - ./mysql/data/mysql_db:/var/lib/mysql
+    restart: always
+
+  springboot:
+    container_name: springboot-container
+    image: springboot
+    # 通过dockerfile来构建镜像
+    build: ./app
+    environment:
+      TZ: Asia/Shanghai
+    # 挂载springboot的日志
+    volumes:
+      - ./app/logs:/home/zcq/docker-compose/logs
+    # springboot服务依赖于mysql服务,这里会把springboot和mysql加载到一个docker网络中,这样就能通过container_name来访问不同的容器
+    depends_on:
+      - mysql
+    restart: always
+
+  grafana: 
+    container_name: grafana-container
+    image: grafana/grafana:8.1.4
+    ports:
+      - '8000:3000'
+    environment:
+      - GF_USERS_ALLOW_SIGN_UP=false
+      - GF_USERS_ALLOW_ORG_CREATE=false
+      - GF_USERS_AUTO_ASSIGN_ORG_ROLE=Read Only Editor 
+      # 初始化grafana的时候加载grafana插件
+      - GF_INSTALL_PLUGINS=agenty-flowcharting-panel
+    volumes:
+      # 挂载grafana的配置文件
+      - ./grafana/grafana:/etc/grafana
+      # 挂载grafana的日志
+      - ./grafana/logs:/var/log/grafana
+      # 挂载grafana的dashboards的JSON文件
+      - ./grafana/dashboards:/var/lib/grafana/dashboards
+    depends_on:
+      - mysql
+    restart: always
