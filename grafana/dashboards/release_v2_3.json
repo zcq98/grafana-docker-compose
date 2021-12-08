@@ -10991,7 +10991,7 @@
       "type": "row"
     },
     {
-      "collapsed": true,
+      "collapsed": false,
       "datasource": null,
       "gridPos": {
         "h": 1,
@@ -11000,588 +11000,597 @@
         "y": 30
       },
       "id": 10,
-      "panels": [
-        {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "center",
-                "displayMode": "auto",
-                "filterable": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "mac"
-                },
-                "properties": [
-                  {
-                    "id": "custom.filterable",
-                    "value": true
-                  },
-                  {
-                    "id": "displayName",
-                    "value": "源MAC地址"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "dark-yellow",
-                      "mode": "fixed"
-                    }
-                  },
-                  {
-                    "id": "custom.displayMode",
-                    "value": "color-text"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "ip"
-                },
-                "properties": [
-                  {
-                    "id": "custom.filterable",
-                    "value": true
-                  },
-                  {
-                    "id": "displayName",
-                    "value": "目的IP地址"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "semi-dark-orange",
-                      "mode": "fixed"
-                    }
-                  },
-                  {
-                    "id": "custom.displayMode",
-                    "value": "color-text"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "average_flow_rate"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "平均流速率"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "decbytes"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "red",
-                      "mode": "continuous-GrYlRd"
-                    }
-                  },
-                  {
-                    "id": "custom.displayMode",
-                    "value": "basic"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "dst_port"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "目的端口号"
-                  },
-                  {
-                    "id": "custom.filterable",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "life"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "持续时间"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "s"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "maxflow"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "最大流速率"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "decbytes"
-                  },
-                  {
-                    "id": "custom.displayMode",
-                    "value": "basic"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "mode": "continuous-GrYlRd"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "protocol"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "协议类型"
-                  },
-                  {
-                    "id": "mappings",
-                    "value": [
-                      {
-                        "options": {
-                          "6": {
-                            "color": "super-light-green",
-                            "index": 0,
-                            "text": "TCP"
-                          },
-                          "17": {
-                            "color": "super-light-red",
-                            "index": 1,
-                            "text": "UDP"
-                          }
-                        },
-                        "type": "value"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "custom.displayMode",
-                    "value": "color-text"
-                  },
-                  {
-                    "id": "custom.filterable",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "visit_cnt"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "访问次数"
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 12,
-            "w": 24,
-            "x": 0,
-            "y": 3
-          },
-          "id": 2,
-          "options": {
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "平均流速率"
-              }
-            ]
-          },
-          "pluginVersion": "8.1.4",
-          "targets": [
-            {
-              "format": "table",
-              "group": [],
-              "metricColumn": "flowid",
-              "rawQuery": true,
-              "rawSql": "SELECT\n  mac,\n  ip,\n  average_flow_rate,\n  maxflow,\n  protocol,\n  dst_port,\n  life,\n  visit_cnt\nFROM flow_info\nWHERE\n  flag = 0",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "average_flow_rate"
-                    ],
-                    "type": "column"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "dst_port"
-                    ],
-                    "type": "column"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "life"
-                    ],
-                    "type": "column"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "maxflow"
-                    ],
-                    "type": "column"
-                  }
-                ]
-              ],
-              "table": "flow_info",
-              "timeColumn": "time",
-              "timeColumnType": "timestamp",
-              "where": []
-            }
-          ],
-          "title": "上行链路",
-          "type": "table"
-        },
-        {
-          "datasource": null,
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "thresholds"
-              },
-              "custom": {
-                "align": "center",
-                "displayMode": "auto",
-                "filterable": false
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green",
-                    "value": null
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              }
-            },
-            "overrides": [
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "mac"
-                },
-                "properties": [
-                  {
-                    "id": "custom.filterable",
-                    "value": true
-                  },
-                  {
-                    "id": "displayName",
-                    "value": "目的MAC地址"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "dark-yellow",
-                      "mode": "fixed"
-                    }
-                  },
-                  {
-                    "id": "custom.displayMode",
-                    "value": "color-text"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "ip"
-                },
-                "properties": [
-                  {
-                    "id": "custom.filterable",
-                    "value": true
-                  },
-                  {
-                    "id": "displayName",
-                    "value": "源IP地址"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "semi-dark-orange",
-                      "mode": "fixed"
-                    }
-                  },
-                  {
-                    "id": "custom.displayMode",
-                    "value": "color-text"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "average_flow_rate"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "平均流速率"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "decbytes"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "fixedColor": "red",
-                      "mode": "continuous-GrYlRd"
-                    }
-                  },
-                  {
-                    "id": "custom.displayMode",
-                    "value": "basic"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "life"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "持续时间"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "s"
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "src_port"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "源端口号"
-                  },
-                  {
-                    "id": "custom.filterable",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "maxflow"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "最大流速率"
-                  },
-                  {
-                    "id": "unit",
-                    "value": "decbytes"
-                  },
-                  {
-                    "id": "custom.displayMode",
-                    "value": "basic"
-                  },
-                  {
-                    "id": "color",
-                    "value": {
-                      "mode": "continuous-GrYlRd"
-                    }
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "protocol"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "协议类型"
-                  },
-                  {
-                    "id": "mappings",
-                    "value": [
-                      {
-                        "options": {
-                          "6": {
-                            "color": "super-light-green",
-                            "index": 0,
-                            "text": "TCP"
-                          },
-                          "17": {
-                            "color": "super-light-red",
-                            "index": 1,
-                            "text": "UDP"
-                          }
-                        },
-                        "type": "value"
-                      }
-                    ]
-                  },
-                  {
-                    "id": "custom.displayMode",
-                    "value": "color-text"
-                  },
-                  {
-                    "id": "custom.filterable",
-                    "value": true
-                  }
-                ]
-              },
-              {
-                "matcher": {
-                  "id": "byName",
-                  "options": "visit_cnt"
-                },
-                "properties": [
-                  {
-                    "id": "displayName",
-                    "value": "访问次数"
-                  }
-                ]
-              }
-            ]
-          },
-          "gridPos": {
-            "h": 12,
-            "w": 24,
-            "x": 0,
-            "y": 15
-          },
-          "id": 6,
-          "options": {
-            "showHeader": true,
-            "sortBy": [
-              {
-                "desc": true,
-                "displayName": "平均流速率"
-              }
-            ]
-          },
-          "pluginVersion": "8.1.4",
-          "targets": [
-            {
-              "format": "table",
-              "group": [],
-              "metricColumn": "flowid",
-              "rawQuery": true,
-              "rawSql": "SELECT\n  ip,\n  mac,\n  average_flow_rate,\n  maxflow,\n  protocol,\n  src_port,\n  life,\n  visit_cnt\nFROM flow_info\nWHERE\n  flag = 1",
-              "refId": "A",
-              "select": [
-                [
-                  {
-                    "params": [
-                      "average_flow_rate"
-                    ],
-                    "type": "column"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "dst_port"
-                    ],
-                    "type": "column"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "life"
-                    ],
-                    "type": "column"
-                  }
-                ],
-                [
-                  {
-                    "params": [
-                      "maxflow"
-                    ],
-                    "type": "column"
-                  }
-                ]
-              ],
-              "table": "flow_info",
-              "timeColumn": "time",
-              "timeColumnType": "timestamp",
-              "where": []
-            }
-          ],
-          "title": "下行链路",
-          "type": "table"
-        }
-      ],
+      "panels": [],
       "title": "上下行链路信息",
       "type": "row"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "mac"
+            },
+            "properties": [
+              {
+                "id": "custom.filterable",
+                "value": true
+              },
+              {
+                "id": "displayName",
+                "value": "源MAC地址"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ip"
+            },
+            "properties": [
+              {
+                "id": "custom.filterable",
+                "value": true
+              },
+              {
+                "id": "displayName",
+                "value": "目的IP地址"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-orange",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "average_flow_rate"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "平均流速率"
+              },
+              {
+                "id": "unit",
+                "value": "decbytes"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "continuous-GrYlRd"
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "basic"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "dst_port"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "目的端口号"
+              },
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "life"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "持续时间"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "maxflow"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "最大流速率"
+              },
+              {
+                "id": "unit",
+                "value": "decbytes"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "basic"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-GrYlRd"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "protocol"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "协议类型"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1": {
+                        "color": "purple",
+                        "index": 2,
+                        "text": "ICMP"
+                      },
+                      "6": {
+                        "color": "super-light-green",
+                        "index": 0,
+                        "text": "TCP"
+                      },
+                      "17": {
+                        "color": "super-light-red",
+                        "index": 1,
+                        "text": "UDP"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "visit_cnt"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "访问次数"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 31
+      },
+      "id": 2,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "平均流速率"
+          }
+        ]
+      },
+      "pluginVersion": "8.1.4",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "flowid",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  mac,\n  ip,\n  average_flow_rate,\n  maxflow,\n  protocol,\n  dst_port,\n  life,\n  visit_cnt\nFROM flow_info\nWHERE\n  flag = 0",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "average_flow_rate"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "dst_port"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "life"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "maxflow"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "flow_info",
+          "timeColumn": "time",
+          "timeColumnType": "timestamp",
+          "where": []
+        }
+      ],
+      "title": "上行链路",
+      "type": "table"
+    },
+    {
+      "datasource": null,
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "custom": {
+            "align": "center",
+            "displayMode": "auto",
+            "filterable": false
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": null
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
+        "overrides": [
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "mac"
+            },
+            "properties": [
+              {
+                "id": "custom.filterable",
+                "value": true
+              },
+              {
+                "id": "displayName",
+                "value": "目的MAC地址"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "dark-yellow",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "ip"
+            },
+            "properties": [
+              {
+                "id": "custom.filterable",
+                "value": true
+              },
+              {
+                "id": "displayName",
+                "value": "源IP地址"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "semi-dark-orange",
+                  "mode": "fixed"
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "average_flow_rate"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "平均流速率"
+              },
+              {
+                "id": "unit",
+                "value": "decbytes"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "fixedColor": "red",
+                  "mode": "continuous-GrYlRd"
+                }
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "basic"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "life"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "持续时间"
+              },
+              {
+                "id": "unit",
+                "value": "s"
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "src_port"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "源端口号"
+              },
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "maxflow"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "最大流速率"
+              },
+              {
+                "id": "unit",
+                "value": "decbytes"
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "basic"
+              },
+              {
+                "id": "color",
+                "value": {
+                  "mode": "continuous-GrYlRd"
+                }
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "protocol"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "协议类型"
+              },
+              {
+                "id": "mappings",
+                "value": [
+                  {
+                    "options": {
+                      "1": {
+                        "color": "purple",
+                        "index": 2,
+                        "text": "ICMP"
+                      },
+                      "6": {
+                        "color": "super-light-green",
+                        "index": 0,
+                        "text": "TCP"
+                      },
+                      "17": {
+                        "color": "super-light-red",
+                        "index": 1,
+                        "text": "UDP"
+                      }
+                    },
+                    "type": "value"
+                  }
+                ]
+              },
+              {
+                "id": "custom.displayMode",
+                "value": "color-text"
+              },
+              {
+                "id": "custom.filterable",
+                "value": true
+              }
+            ]
+          },
+          {
+            "matcher": {
+              "id": "byName",
+              "options": "visit_cnt"
+            },
+            "properties": [
+              {
+                "id": "displayName",
+                "value": "访问次数"
+              }
+            ]
+          }
+        ]
+      },
+      "gridPos": {
+        "h": 12,
+        "w": 24,
+        "x": 0,
+        "y": 43
+      },
+      "id": 6,
+      "options": {
+        "showHeader": true,
+        "sortBy": [
+          {
+            "desc": true,
+            "displayName": "平均流速率"
+          }
+        ]
+      },
+      "pluginVersion": "8.1.4",
+      "targets": [
+        {
+          "format": "table",
+          "group": [],
+          "metricColumn": "flowid",
+          "rawQuery": true,
+          "rawSql": "SELECT\n  ip,\n  mac,\n  average_flow_rate,\n  maxflow,\n  protocol,\n  src_port,\n  life,\n  visit_cnt\nFROM flow_info\nWHERE\n  flag = 1",
+          "refId": "A",
+          "select": [
+            [
+              {
+                "params": [
+                  "average_flow_rate"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "dst_port"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "life"
+                ],
+                "type": "column"
+              }
+            ],
+            [
+              {
+                "params": [
+                  "maxflow"
+                ],
+                "type": "column"
+              }
+            ]
+          ],
+          "table": "flow_info",
+          "timeColumn": "time",
+          "timeColumnType": "timestamp",
+          "where": []
+        }
+      ],
+      "title": "下行链路",
+      "type": "table"
     },
     {
       "collapsed": false,
@@ -11590,7 +11599,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 31
+        "y": 55
       },
       "id": 8,
       "panels": [],
@@ -11628,7 +11637,7 @@
         "h": 19,
         "w": 13,
         "x": 0,
-        "y": 32
+        "y": 56
       },
       "id": 18,
       "options": {
@@ -11767,7 +11776,7 @@
         "h": 12,
         "w": 11,
         "x": 13,
-        "y": 32
+        "y": 56
       },
       "id": 22,
       "options": {
@@ -11863,7 +11872,7 @@
         "h": 7,
         "w": 11,
         "x": 13,
-        "y": 44
+        "y": 68
       },
       "id": 24,
       "options": {
@@ -11929,5 +11938,5 @@
   "timezone": "",
   "title": "数据展示界面",
   "uid": "uE1TnlI7k",
-  "version": 2
+  "version": 1
 }
